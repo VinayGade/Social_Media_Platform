@@ -15,28 +15,28 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @GetMapping("/employees")
+    @GetMapping("/posts")
     public List<Post> findAll() {
         return postService.findAll();
     }
 
     @PostMapping("/posts")
-    public void save(Post post){
+    public void save(@RequestBody Post post){
         postService.save(post);
     }
 
     @GetMapping("/posts/{id}")
-    public Post find(int id){
+    public Post find(@PathVariable int id){
         return postService.findById(id);
     }
 
     @DeleteMapping("/posts/{id}")
-    public void delete(int id){
+    public void delete(@PathVariable int id){
         postService.delete(id);
     }
 
     @PutMapping("/posts")
-    public void update(Post post){
+    public void update(@RequestBody Post post){
         postService.save(post);
     }
 

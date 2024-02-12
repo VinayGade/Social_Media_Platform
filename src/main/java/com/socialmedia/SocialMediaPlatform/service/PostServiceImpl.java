@@ -32,11 +32,11 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public void update(Post post) {
-
+        postRepository.save(post);
     }
 
     @Override
     public void delete(int id) {
-
+        postRepository.delete(postRepository.findById(id).get());
     }
 }

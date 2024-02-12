@@ -1,14 +1,13 @@
 package com.socialmedia.SocialMediaPlatform.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -28,15 +27,19 @@ Comment on a post
     @Column(name="user_id")
     private int id;
 
-    @Column(name="name")
     private String name;
 
-    @Column(name="age")
     private int age;
 
-    @OneToOne(mappedBy = "user")
-    @Column(name="post")
+    @OneToOne(
+            //mappedBy = "user",
+            cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name="post_id")
     private Post post;
 
+    //@JoinColumn(name="group_id")
+    @OneToOne(
+            mappedBy = "group",
+            cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     private Group group;
 }

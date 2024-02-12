@@ -1,18 +1,18 @@
 package com.socialmedia.SocialMediaPlatform.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name="post_tbl")
+@Entity
+@Table(name="post_tbl")
 public class Post {
 
     @Id
@@ -27,6 +27,9 @@ public class Post {
 
     private List<String> comments;
 
-    @OneToOne(mappedBy = "post")
+    //@JoinColumn(name="group_id")
+    @OneToOne(
+            mappedBy = "post",
+            cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     private Group group;
 }
